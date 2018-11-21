@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/elephants
+    username: maksym
+    password: 1796
+    tomcat:
+      max-wait: 1000
+      max-active: 50
+      test-on-borrow: true
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+sftp:
+  host: 192.168.1.106
+  port: 22
+  user: maksymmikitiuk
+  password: 1796
+  directory: /home/maksymmikitiuk/ftp/files/elephants/
+  privateKeyPassPhrase:
+  privateKey:
