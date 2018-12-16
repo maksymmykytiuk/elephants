@@ -2,8 +2,6 @@ package com.maksymmykytiuk.elephants.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -24,6 +22,16 @@ public class User {
     )
     private Long id;
 
+    @Column(name = "username", unique = true)
+    @NotEmpty
+    @Size(max = 64)
+    private String username;
+
+    @Column(name = "password")
+    @NotEmpty
+    @Size(max = 64)
+    private String password;
+
     @Column(name = "email")
     @NotEmpty
     @Size(max = 128)
@@ -36,7 +44,7 @@ public class User {
 
     @Column(name = "active")
     @NotEmpty
-    private int active;
+    private boolean active;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -47,9 +55,7 @@ public class User {
     @NotEmpty
     private Long user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_type_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    protected UserType userType;
+    @Column(name = "user_type_id")
+    @NotEmpty
+    private Long userType;
 }
